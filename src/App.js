@@ -8,7 +8,7 @@ import Register from './components/frontend/auth/Register';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 
-axios.defaults.baseURL = 'http://localhost:8000/';
+axios.defaults.baseURL = 'http://sirval-ecommerce.herokuapp.com/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json';
 
