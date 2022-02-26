@@ -5,7 +5,7 @@ function Home() {
     return (
         <div>
             <Navbar/>
-            <h1>Welcome to my first React App</h1>
+            <h1>Welcome to React Ecommerce App using Laravel API</h1>
         </div>
        
     );
