@@ -7,8 +7,9 @@ import Login from './components/frontend/auth/Login';
 import Register from './components/frontend/auth/Register';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
+import Collection from './components/frontend/user/Collection';
 
-axios.defaults.baseURL = 'http://sirval-ecommerce.herokuapp.com/';
+axios.defaults.baseURL = 'http://localhost:8000/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json';
 
@@ -22,6 +23,7 @@ function App() {
           <Route exact path="/" component={Home}/>
           <Route  path="/register" component={Register}/>
           <Route  path="/login" component={Login}/>
+          <Route  path="user/collection" component={Collection}/>
           <Route path="/admin" name="Admin" render={(props) => <MasterLayout {...props}/>}/>
           
         </Switch>

@@ -1,9 +1,11 @@
   import React, {useState} from "react";
 import Navbar from "../../../layout/frontend/Navbar";
-import { axios } from 'axios';
+import  axios  from 'axios';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import  swal  from 'sweetalert';
 
 function Login() {
-
+  const history = useHistory();
   const [loginInput, setLogin] = useState({
     email: '',
     password: '',
@@ -16,21 +18,25 @@ function Login() {
   }
 
   const loginSubmit = (e) => {
-    e.preventDeafault();
+    e.preventDefault();
 
     const data = {
       email: loginInput.email,
       password: loginInput.password,
     }
     axios.get('/sanctum/csrf-cookie').then(response => {
-    axios.post('api/login', data).then(res =>{
+    //axios.get('/sanctum/csrf-cookie').then(response => {
+    axios.post(`api/login`, data).then(res =>{
       if(res.data.status === 200)
       {
-
+        localStorage.setItem('auth_token', res.data.token);
+        localStorage.setItem('auth_name', res.data.username);
+        swal('success', res.data.message, 'success');
+        history.push('/user/collection');
       }
       else if(res.data.status === 401)
       {
-
+        swal('warning', res.data.message, 'warning');
       }
       else
       {
