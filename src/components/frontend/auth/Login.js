@@ -25,14 +25,13 @@ function Login() {
       password: loginInput.password,
     }
     axios.get('/sanctum/csrf-cookie').then(response => {
-    //axios.get('/sanctum/csrf-cookie').then(response => {
     axios.post(`api/login`, data).then(res =>{
       if(res.data.status === 200)
       {
         localStorage.setItem('auth_token', res.data.token);
         localStorage.setItem('auth_name', res.data.username);
         swal('success', res.data.message, 'success');
-        history.push('/user/collection');
+        history.push('/');
       }
       else if(res.data.status === 401)
       {
@@ -55,7 +54,7 @@ function Login() {
             <div className="col-md-6">
               <div className="card">
                 <div className="card-header">
-                  <h4>Register</h4>
+                  <h4>Login</h4>
                 </div>
                 <div className="card-body">
                   <form onSubmit={loginSubmit}>

@@ -1,7 +1,47 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import axios from "axios";
+import  swal  from 'sweetalert';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+
 
 function Navbar() {
+  const history = useHistory();
+
+const logoutSubmit = (e) => {
+  e.preventDefault();
+
+  axios.post(`/api/logout`).then(res => {
+    if (res.data.status === 200) 
+    {
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('auth_name');
+      swal('success', res.data.message,'success');
+      history.push('/');
+    }
+  });
+}
+  var AuthButtons = "";
+    if (!localStorage.getItem('auth_token') ) {
+      AuthButtons = (
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <Link className="nav-link" to="/login">Login</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/register">Register</Link>
+        </li>
+      </ul>
+      );
+    } else {
+      AuthButtons = (
+        <li className="nav-item">
+          <div className="d-grid gap-2 d-md-block">
+            <button type="button" onClick={logoutSubmit} name="logout" className="nav-link btn btn-danger btn-sm text-white">Log out</button>
+            </div>
+        </li>
+      );
+    }
     return(
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top">
             <div className="container">
@@ -15,14 +55,9 @@ function Navbar() {
                     <Link className="nav-link active" aria-current="page" to="../">Home</Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="#">Collection</Link>
+                    <Link className="nav-link active" aria-current="page" to="./">Collection</Link>
                   </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/login">Login</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/register">Register</Link>
-                  </li>
+                  {AuthButtons}
                 </ul>
                 
               </div>
